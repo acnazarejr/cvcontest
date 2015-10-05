@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Flasky - Register{% endblock %}
+
+{% block page_content %}
+<section class="login-form">
+	<section>
+		<form method="post" class="form" role="form" enctype="multipart/form-data">
+			{{ form.hidden_tag() }}
+  			{{ wtf.form_errors(form, hiddens="only") }}
+
+  			{{ wtf.form_field(form.buildFile) }}
+  			{{ wtf.form_field(form.message) }}
+  			{{ wtf.form_field(form.submit) }}
+		</form>
+	</section>
+</section>
+{% endblock %}
