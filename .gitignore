@@ -58,3 +58,10 @@ target/
 
 # Virtual env
 venv/
+
+# Pycharm
+.idea/
+
+# DBFiles
+migrations/
+*.sqlite
