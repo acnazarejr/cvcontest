@@ -65,3 +65,8 @@ venv/
 # DBFiles
 migrations/
 *.sqlite
+
+# Application Context Files
+photos/
+uploads/
+variables*.*

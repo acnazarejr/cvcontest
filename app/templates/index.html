@@ -1,73 +1,58 @@
-{% extends "base.html" %}
+{% extends "content.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Flasky{% endblock %}
+{% block subtitle %}Home{% endblock %}
 
-{% block page_content %}
-<section class="build-section">
-    <section>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>UTC Time</th>
-                    <th>Message</th>
-                    <th>Status</th>
-                    <th>Build File</th>
-                    <th>Log</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for build in builds %}
-                <tr>      
-                    <td>{{ loop.index }}</td>
-                    <td>{{ build.timestamp.strftime("%b, %d - %H:%M") }}</td>
-                    <td>{{ build.message }}</td>
-                    <td>{{ build.current_status() }}</td>
-                    <td><a href="{{ url_for('main.download', buildHash=build.build_hash) }}">Download</a></td>
-                    {% if build.status == 4%}
-                    <td><a href="{{ url_for('main.view', buildHash=build.build_hash) }}">View Log</a></td>
-                    {% else %}
-                    <td>N/A</td>
-                    {% endif %}
-                </li>
-                {% endfor %}
-            </tbody>
-        </table>       
-    </section>
-</section>
-<!-- <div class="page-header">
-    <h1>Hello, {% if current_user.is_authenticated() %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h1>
-	
-<table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Row</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>John</td>
-                <td>Carter</td>
-                <td>johncarter@mail.com</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Peter</td>
-                <td>Parker</td>
-                <td>peterparker@mail.com</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>John</td>
-                <td>Rambo</td>
-                <td>johnrambo@mail.com</td>
-            </tr>
-        </tbody>
-    </table>
+{% block grid1 %}2{% endblock %}
+{% block grid2 %}8{% endblock %}
+{% block content_grid2 %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title"><i class="fa fa-cogs"></i><span class="icon-text">Actions</span></h2>
+        </div>
+        <div class="panel-body">
+            {# First line #}
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <a href="{{ url_for('main.upload') }}" class="btn btn-primary btn-lg" role="button">
+                        <i class="fa fa-plus-circle fa-3x"></i>
+                        <br>
+                        New build
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="{{ url_for('main.view_builds') }}" class="btn btn-primary btn-lg" role="button">
+                        <i class="fa fa-list-alt fa-3x"></i>
+                        <br>
+                        View your Builds
+                    </a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="#" class="btn btn-primary btn-lg" role="button">
+                        <i class="fa fa-star fa-3x"></i>
+                        <br>
+                        Ranking
+                    </a>
+                </div>
+            </div>
 
-</div> -->
+            {# Second line #}
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <a href="{{ url_for('auth.edit_info') }}" class="btn btn-primary btn-lg" role="button">
+                        <i class="fa fa-user fa-3x"></i>
+                        <br>
+                        Edit account info
+                    </a>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+{% block grid3 %}2{% endblock %}

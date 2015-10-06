@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Flasky{% endblock %}
+
+{% block page_content %}
+<section class="build-section">
+    <section>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>UTC Time</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th>Build File</th>
+                    <th>Log</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for build in builds %}
+                <tr>      
+                    <td>{{ loop.index }}</td>
+                    <td>{{ build.timestamp.strftime("%b, %d - %H:%M") }}</td>
+                    <td>{{ build.message }}</td>
+                    <td>{{ build.current_status() }}</td>
+                    <td><a href="{{ url_for('main.download', buildHash=build.build_hash) }}">Download</a></td>
+                    {% if build.status == 4%}
+                    <td><a href="{{ url_for('main.view', buildHash=build.build_hash) }}">View Log</a></td>
+                    {% else %}
+                    <td>N/A</td>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </tbody>
+        </table>       
+    </section>
+</section>
+{% endblock %}

@@ -1,19 +1,25 @@
-{% extends "base.html" %}
+{% extends "content.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Flasky - Register{% endblock %}
+{% block subtitle %}New Build{% endblock %}
 
-{% block page_content %}
-<section class="login-form">
-	<section>
-		<form method="post" class="form" role="form" enctype="multipart/form-data">
-			{{ form.hidden_tag() }}
-  			{{ wtf.form_errors(form, hiddens="only") }}
+{% block grid1 %}3{% endblock %}
+{% block grid2 %}6{% endblock %}
+{% block content_grid2 %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title"><i class="fa fa-plus-circle"></i><span class="icon-text">New Build</span></h2>
+        </div>
+        <div class="panel-body">
+            <form method="post" class="form" role="form" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                {{ wtf.form_errors(form, hiddens="only") }}
 
-  			{{ wtf.form_field(form.buildFile) }}
-  			{{ wtf.form_field(form.message) }}
-  			{{ wtf.form_field(form.submit) }}
-		</form>
-	</section>
-</section>
+                {{ wtf.form_field(form.buildFile) }}
+                {{ wtf.form_field(form.message) }}
+                {{ wtf.form_field(form.submit) }}
+            </form>
+        </div>
+    </div>
 {% endblock %}
+{% block grid3 %}3{% endblock %}

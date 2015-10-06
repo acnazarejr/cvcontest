@@ -1,7 +1,9 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms.validators import Required, Length, Email, Regexp, EqualTo
 from wtforms import ValidationError
+from flask.ext.login import current_user
 from ..models import User
 
 
@@ -14,13 +16,14 @@ class LoginForm(Form):
 
 class RegistrationForm(Form):
     email = StringField('Email', validators=[Required(), Length(1, 64),
-                                           Email()])
+                                             Email()])
     username = StringField('Username', validators=[
         Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                                           'Usernames must have only letters, '
                                           'numbers, dots or underscores')])
+    complete_name = StringField('Complete Name', validators=[Required(), Length(1, 200)])
     register = StringField('Registration', validators=[
-        Required(), Length(8, 8), Regexp('^[0-9]*$', 0,'Register must have only numbers')])
+        Required(), Length(8, 8), Regexp('^[0-9]*$', 0, 'Register must have only numbers')])
     password = PasswordField('Password', validators=[
         Required(), EqualTo('password2', message='Passwords must match.')])
     password2 = PasswordField('Confirm password', validators=[Required()])
@@ -34,6 +37,10 @@ class RegistrationForm(Form):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('Username already in use.')
 
+    def validate_register(self, field):
+        if User.query.filter_by(register=field.data).first():
+            raise ValidationError('Register number already in use.')
+
 
 class ChangePasswordForm(Form):
     old_password = PasswordField('Old password', validators=[Required()])
@@ -44,8 +51,7 @@ class ChangePasswordForm(Form):
 
 
 class PasswordResetRequestForm(Form):
-    email = StringField('Email', validators=[Required(), Length(1, 64),
-                                             Email()])
+    email = StringField('Email', validators=[Required(), Length(1, 64), Email()])
     submit = SubmitField('Reset Password')
 
 
@@ -71,3 +77,17 @@ class ChangeEmailForm(Form):
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already registered.')
+
+
+class EditInfoForm(Form):
+    complete_name = StringField('Complete Name', validators=[Required(), Length(1, 200)])
+    register = StringField('Registration', validators=[
+        Required(), Length(8, 8), Regexp('^[0-9]*$', 0, 'Register must have only numbers')])
+    photo = FileField('Upload photo...', validators=[
+        FileAllowed(['jpg', 'jpe', 'jpeg', 'png', 'gif', 'svg', 'bmp'], 'Images only!')
+    ])
+    submit = SubmitField('Save Changes')
+
+    def validate_register(self, field):
+        if User.query.filter_by(register=field.data).first() != current_user:
+            raise ValidationError('Register number already in use.')

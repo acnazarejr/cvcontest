@@ -1,15 +1,23 @@
-{% extends "base.html" %}
+{% extends "content.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Flasky - Login{% endblock %}
+{% block subtitle %}Login{% endblock %}
 
-{% block page_content %}
-<section class="login-form">
-	<section>
-	    {{ wtf.quick_form(form) }}
-	    <hr>
-	    <!-- <p>Forgot your password? <a href="{{ url_for('auth.password_reset_request') }}">Click here to reset it</a>.</p> -->
-	    <p><a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg btn-block">Click here to register</a></p>
-	</section>
-</section>
+{% block grid1 %}4{% endblock %}
+{% block grid2 %}4{% endblock %}
+{% block content_grid2 %}
+    <div class="well login">
+        {{ wtf.quick_form(form) }}
+        <br>
+
+        <p>Forgot your password? <a href="{{ url_for('auth.password_reset_request') }}">Click here to reset
+            it</a>.</p>
+        <hr>
+        <p>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg btn-block">
+                Click here to register
+            </a>
+        </p>
+    </div>
 {% endblock %}
+{% block grid3 %}4{% endblock %}

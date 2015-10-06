@@ -1,12 +1,13 @@
-{% extends "base.html" %}
+{% extends "content.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}Flasky - Register{% endblock %}
+{% block subtitle %}Register{% endblock %}
 
-{% block page_content %}
-<section class="login-form">
-	<section>
-	    {{ wtf.quick_form(form) }}
-	</section>
-</section>
+{% block grid1 %}3{% endblock %}
+{% block grid2 %}6{% endblock %}
+{% block content_grid2 %}
+    <div class="well">
+        {{ wtf.quick_form(form) }}
+    </div>
 {% endblock %}
+{% block grid3 %}3{% endblock %}

@@ -1,76 +1,101 @@
 {% extends "bootstrap/base.html" %}
 
-{% block title %}Flasky{% endblock %}
-
 {% block head %}
-{{ super() }}
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-<script>
-    function adjust_body_offset() {
-        $('body').css('padding-top', '100px' );
-    }
-
-    $(window).resize(adjust_body_offset);
-
-    $(document).ready(adjust_body_offset);
-</script>
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function adjust_body_offset() {
+            $('body').css('padding-top', '100px');
+        }
+        $(window).resize(adjust_body_offset);
+        $(document).ready(adjust_body_offset);
+    </script>
 {% endblock %}
 
+{% block title %}{% block subtitle %}{% endblock %} - cvContest{% endblock %}
+
 {% block navbar %}
-{% if current_user.is_authenticated() %}
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">Flasky</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{{ url_for('main.index') }}">Home</a></li>
-                <li><a href="{{ url_for('main.upload') }}">Upload Build</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                {% if current_user.is_authenticated() %}
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
-                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+    {% if current_user.is_authenticated() %}
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                         <i class="fa fa-eye"></i>
+                        <span style="margin-left: 5px">cvContest</span>
+                    </a>
+                </div>
+
+                <div class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="{{ url_for('main.index') }}">
+                                <i class="fa fa-home"></i>
+                                <span class="icon-text">Home</span>
+                            </a>
+                        </li>
+                        {#                <li class="dropdown">#}
+                        {#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Builds<b class="caret"></b></a>#}
+                        {#                    <ul class="dropdown-menu">#}
+                        {#                        <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>#}
+                        {#                        <li><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>#}
+                        {#                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>#}
+                        {#                    </ul>#}
+                        {#                </li>#}
+                        {#                <li><a href="{{ url_for('main.upload') }}">Upload Build</a></li>#}
                     </ul>
-                </li>
-                {% else %}
-                <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
-                {% endif %}
-            </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if current_user.is_authenticated() %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-user"></i>
+                                    <span class="icon-text">User Account</span>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url_for('auth.edit_info') }}">Edit Info</a></li>
+                                    <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+                        {% endif %}
+                    </ul>
+
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-{% endif %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
-    </div>
-    {% endfor %}
+    <div class="container content">
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
 
-    {% block page_content %}{% endblock %}
-</div>
+        {% block page_content %}{% endblock %}
+    </div>
 {% endblock %}
 
 {% block scripts %}
-{{ super() }}
-{{ moment.include_moment() }}
+    {{ super() }}
+    {{ moment.include_moment() }}
 
 {% endblock %}
