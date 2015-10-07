@@ -19,8 +19,6 @@ login_manager.login_view = 'auth.login'
 from apscheduler.scheduler import Scheduler
 
 
-
-
 def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
@@ -42,7 +40,7 @@ def create_app(config_name):
 
     def runBuilds():
         with app.app_context():
-           external.run_builds()
+            external.run_builds()
 
     @app.before_first_request
     def initialize():

@@ -89,5 +89,5 @@ class EditInfoForm(Form):
     submit = SubmitField('Save Changes')
 
     def validate_register(self, field):
-        if User.query.filter_by(register=field.data).first() != current_user:
+        if User.query.filter_by(register=field.data).first():
             raise ValidationError('Register number already in use.')

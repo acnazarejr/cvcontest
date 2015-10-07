@@ -1,0 +1,55 @@
+{% extends "content.html" %}
+
+{% block head %}
+    {{ super() }}
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.0/bootstrap-table.min.css">
+
+{% endblock %}
+
+{% block subtitle %}Ranking{% endblock %}
+
+{% block grid1 %}2{% endblock %}
+{% block grid2 %}8{% endblock %}
+{% block content_grid2 %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <i class="fa fa-star"></i>
+                <span class="ml5">Ranking {{ ranking }}</span>
+            </h2>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% for build in builds %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-1">
+                               <img src="//placehold.it/50" class="avatar img-circle" alt="avatar">
+                            </div>
+                            <div class="col-md-9">
+                                {{ build.author.complete_name }}
+                            </div>
+                            <div class="col-md-2">
+                                <span class="badge">{{ "{:.3f}".format(build.get_ranking_value(ranking)) }}</span>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}
+{% block grid3 %}2{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.0/bootstrap-table.min.js"></script>
+
+    <!-- Latest compiled and minified Locales -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.0/locale/bootstrap-table-en-US.min.js"></script>
+{% endblock %}

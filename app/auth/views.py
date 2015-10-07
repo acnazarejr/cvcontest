@@ -185,6 +185,7 @@ def edit_info():
         current_user.complete_name = form.complete_name.data
         current_user.register = form.register.data
         db.session.add(current_user)
+        db.session.commit()
         if form.photo.data.filename != '':
             #Save original
             filename = secure_filename(form.photo.data.filename)

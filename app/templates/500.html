@@ -1,9 +1,15 @@
-{% extends "base.html" %}
+{% extends "content.html" %}
 
-{% block title %}Flasky - Internal Server Error{% endblock %}
+{% block subtitle %}Internal Server Error{% endblock %}
 
-{% block page_content %}
-<div class="page-header">
-    <h1>Internal Server Error</h1>
-</div>
+{% block grid1 %}3{% endblock %}
+{% block grid2 %}6{% endblock %}
+{% block content_grid2 %}
+    <div class="well text-center">
+        <h2>Internal Server Error</h2>
+        <h1><i class="fa fa-server fa-4x"></i></h1>
+        <br>
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-block" role="button">Back to home...</a>
+    </div>
 {% endblock %}
+{% block grid3 %}3{% endblock %}

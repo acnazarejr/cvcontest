@@ -32,7 +32,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="{{ url_for('main.index') }}">
-                         <i class="fa fa-eye"></i>
+                        <i class="fa fa-eye"></i>
                         <span style="margin-left: 5px">cvContest</span>
                     </a>
                 </div>
@@ -40,21 +40,36 @@
                 <div class="navbar-collapse collapse">
 
                     <ul class="nav navbar-nav">
+                        {# HOME #}
                         <li>
                             <a href="{{ url_for('main.index') }}">
                                 <i class="fa fa-home"></i>
-                                <span class="icon-text">Home</span>
+                                <span class="ml5">Home</span>
                             </a>
                         </li>
-                        {#                <li class="dropdown">#}
-                        {#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Builds<b class="caret"></b></a>#}
-                        {#                    <ul class="dropdown-menu">#}
-                        {#                        <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>#}
-                        {#                        <li><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>#}
-                        {#                        <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>#}
-                        {#                    </ul>#}
-                        {#                </li>#}
-                        {#                <li><a href="{{ url_for('main.upload') }}">Upload Build</a></li>#}
+                        {# BUILDS #}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-list-alt"></i>
+                                <span class="ml5">Builds</span>
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url_for('main.view_builds') }}">View your Builds</a></li>
+                                <li><a href="{{ url_for('main.upload') }}">New Build</a></li>
+                            </ul>
+                        </li>
+                        {# RANKING #}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-star"></i>
+                                <span class="ml5">Rankings</span>
+                                <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url_for('main.ranking1') }}">Ranking 1</a></li>
+                                <li><a href="{{ url_for('main.ranking2') }}">Ranking 2</a></li>
+                                <li><a href="{{ url_for('main.ranking3') }}">Ranking 3</a></li>
+                            </ul>
+                        </li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -62,7 +77,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-user"></i>
-                                    <span class="icon-text">User Account</span>
+                                    <span class="ml5">User Account</span>
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -97,5 +112,4 @@
 {% block scripts %}
     {{ super() }}
     {{ moment.include_moment() }}
-
 {% endblock %}

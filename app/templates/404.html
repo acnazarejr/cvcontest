@@ -1,9 +1,15 @@
-{% extends "base.html" %}
+{% extends "content.html" %}
 
-{% block title %}Flasky - Page Not Found{% endblock %}
+{% block subtitle %}Page Not Found{% endblock %}
 
-{% block page_content %}
-<div class="page-header">
-    <h1>Not Found</h1>
-</div>
+{% block grid1 %}3{% endblock %}
+{% block grid2 %}6{% endblock %}
+{% block content_grid2 %}
+    <div class="well text-center">
+        <h2>Ops... Page not found!</h2>
+        <h1><i class="fa fa-bomb fa-4x"></i></h1>
+        <br>
+        <a href="{{ url_for('main.index') }}" class="btn btn-primary btn-block" role="button">Back to home...</a>
+    </div>
 {% endblock %}
+{% block grid3 %}3{% endblock %}
