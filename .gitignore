@@ -70,3 +70,6 @@ migrations/
 photos/
 uploads/
 variables*.*
+
+# Vagrant
+.vagrant

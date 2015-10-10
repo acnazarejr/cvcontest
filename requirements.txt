@@ -20,3 +20,4 @@ itsdangerous==0.23
 apscheduler==2.1.2
 Pillow==3.0.0
 ForgeryPy==0.1
+uwsgi

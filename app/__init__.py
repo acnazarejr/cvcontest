@@ -5,7 +5,8 @@ from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from config import config
-
+from apscheduler.scheduler import Scheduler
+import os
 
 bootstrap = Bootstrap()
 mail = Mail()
@@ -15,8 +16,6 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
-
-from apscheduler.scheduler import Scheduler
 
 
 def create_app(config_name):
@@ -50,3 +49,5 @@ def create_app(config_name):
         apsched.add_interval_job(runBuilds, seconds=10)
 
     return app
+
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
