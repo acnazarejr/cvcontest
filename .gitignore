@@ -69,6 +69,8 @@ migrations/
 # Application Context Files
 photos/
 uploads/
+images/
+comparacao/
 variables*.*
 
 # Vagrant

@@ -11,10 +11,12 @@ class Config:
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     FLASKY_MAIL_SUBJECT_PREFIX = '[SSIG cvContest]'
-    FLASKY_MAIL_SENDER = 'SSIG cvContest Admin <antonio.nazare@dcc.ufmg.br>'
+    FLASKY_MAIL_SENDER = 'SSIG cvContest Admin <ssig.cvcontest@gmail.com>'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
     UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER')
     PHOTOS_FOLDER = os.environ.get('PHOTOS_FOLDER')
+    IMAGES_FOLDER = os.environ.get('IMAGES_FOLDER')
+    COMPARA_FOLDER = os.environ.get('COMPARA_FOLDER')
     APP_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'app')
 
     @staticmethod
