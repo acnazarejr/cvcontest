@@ -1,9 +1,10 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app
+from flask import current_app, url_for
 from flask.ext.login import UserMixin
 from datetime import datetime
 from . import db, login_manager
+import os
 
 
 class BuildStatus:
@@ -115,6 +116,17 @@ class User(UserMixin, db.Model):
             return self.user_id
         except AttributeError:
             raise NotImplementedError('No `id` attribute - override `get_id`')
+
+    def get_photo(self):
+        photos_folder = os.path.join(current_app.config['APP_ROOT'], 'static', current_app.config['PHOTOS_FOLDER'])
+        user_photo = photos_folder + '/' + str(self.username) + ".jpg"
+
+        if os.path.isfile(user_photo):
+            user_photo = url_for('static', filename='photos/' + self.username + '.jpg')
+        else:
+            user_photo = ''
+
+        return user_photo
 
     @property
     def password(self):

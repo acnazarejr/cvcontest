@@ -1,46 +1,23 @@
-{% extends "base.html" %}
+{% extends "content.html" %}
 
-{% block title %}Flasky{% endblock %}
+{% block subtitle %}View Log{% endblock %}
 
 {% block page_content %}
-<section class="view-section">
-    <section> 
-        <tt>{{ log_text }}</tt>
-    </section>
-</section>
-<!-- <div class="page-header">
-    <h1>Hello, {% if current_user.is_authenticated() %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h1>
-	
-<table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Row</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>John</td>
-                <td>Carter</td>
-                <td>johncarter@mail.com</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Peter</td>
-                <td>Parker</td>
-                <td>peterparker@mail.com</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>John</td>
-                <td>Rambo</td>
-                <td>johnrambo@mail.com</td>
-            </tr>
-        </tbody>
-    </table>
-
-</div> -->
+{% autoescape false %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                <i class="fa fa-binoculars"></i>
+                <span class="ml5">View Log</span>                
+            </h2>
+        </div>
+        <div class="panel-body">
+            <section>
+                {% for line in log_text %}
+                    <tt>{{ line | safe}}</tt><br>
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+{% endautoescape %}
 {% endblock %}

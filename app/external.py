@@ -143,7 +143,7 @@ def build_function(zipfile, images_folder, compare_directory):
     images = ["lena.png", "lena2.png", "lena3.png"]  
 
     build_directory, global_ret, before_test_output = before_test(zipfile)
-    gloabl_output += before_test_output
+    gloabl_output += before_test_output + '\n\n\n'
     if global_ret != 0:
         return global_ret, -1, -1, -1, gloabl_output
 
@@ -164,7 +164,7 @@ def build_function(zipfile, images_folder, compare_directory):
         totalInSize = totalInSize + totalsize
 
         compacta_time, global_ret, compacta_output = compacta(image, i+1, build_directory)
-        gloabl_output += compacta_output
+        gloabl_output += compacta_output + '\n\n\n'
         totalTime += compacta_time
         if global_ret != 0:
             return global_ret, -1, -1, -1, gloabl_output
@@ -179,13 +179,13 @@ def build_function(zipfile, images_folder, compare_directory):
         totalCompressSize = totalCompressSize + imsize
 
         descompacta_time, global_ret, descompacta_output = descompacta(fileComp, i+1, build_directory)
-        gloabl_output += descompacta_output
+        gloabl_output += descompacta_output + '\n\n\n'
         totalTime += descompacta_time
         if global_ret != 0:
             return global_ret, -1, -1, -1, gloabl_output    
 
         psnr, global_ret, compara_output = compara(image, fileRec, i, build_directory, compare_directory)
-        gloabl_output += compara_output
+        gloabl_output += compara_output + '\n\n\n'
         if global_ret != 0:
             return global_ret, -1, -1, -1, gloabl_output    
 

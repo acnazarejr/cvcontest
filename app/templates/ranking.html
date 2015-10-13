@@ -30,15 +30,19 @@
             <ul class="list-group">
                 {% for build in builds %}
                     <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-1">
-                               <img src="//placehold.it/50" class="avatar img-circle" alt="avatar">
+                        <div class="row display-table">
+                            <div class="col-md-1 display-cell">
+                                {% if build.author.get_photo() == '' %}
+                                    <img src="//placehold.it/150" class="avatar img-circle ranking-avatar" alt="avatar">
+                                {% else %}
+                                    <img src="{{ build.author.get_photo() }}" class="avatar img-circle ranking-avatar" alt="avatar">
+                                {% endif %}
                             </div>
-                            <div class="col-md-9">
-                                {{ build.author.complete_name }}
+                            <div class="col-md-9 display-cell">
+                                <h4>{{ build.author.complete_name }}</h4>
                             </div>
-                            <div class="col-md-2">
-                                <span class="badge">{{ "{:.3f}".format(build.get_ranking_value(ranking)) }}</span>
+                            <div class="col-md-2 display-cell">
+                                <span class="badge sz150 ">{{ "{:.3f}".format(build.get_ranking_value(ranking)) }}</span>
                             </div>
                         </div>
                     </li>

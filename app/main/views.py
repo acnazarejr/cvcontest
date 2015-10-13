@@ -91,7 +91,8 @@ def view_log(build_id):
         build_hash = build.build_hash
         uploads = os.path.join(current_app.config['APP_ROOT'], 'static', current_app.config['UPLOAD_FOLDER'])
         log_txt = open(uploads + "/" + build_hash + ".txt", "r")
-        return render_template('view_log.html', log_text=log_txt.read().encode('utf-8'))
+        lines = log_txt.read().encode('utf-8').split('\n')
+        return render_template('view_log.html', log_text=lines)
     else:
         flash('You do not have permission to access this build.')
         return redirect(url_for('main.index'))
