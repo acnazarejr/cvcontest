@@ -12,6 +12,7 @@ class BuildStatus:
     BUILD = 1
     ERROR = 2
     SUCCESS = 3
+    ERROR_FILE = 9
 
 
 class Build(db.Model):
@@ -58,9 +59,11 @@ class Build(db.Model):
         elif n == 1:
             return 'Processing'
         elif n == 2:
-            return 'Error'
-        elif n >= 3:
+            return 'Error 01'
+        elif n == 3:
             return 'Passed'
+        elif n == 9:
+            return 'Error 02'
 
     def get_ranking_value(self, ranking=1):
         if ranking == 1:

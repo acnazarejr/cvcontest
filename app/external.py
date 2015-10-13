@@ -32,10 +32,15 @@ def run_builds():
         build.status = BuildStatus.BUILD
         db.session.commit()
         ret, rank1, rank2, rank3, output = build_function(build_file_path, images_folder, compara_folder)
-            
+
         log_file = open(log_file_path, "w")
         log_file.write(output)
         log_file.close()
+
+        if ret != 0:
+            build.status = BuildStatus.ERROR_FILE
+            db.session.commit()
+            return        
     
         build.status = BuildStatus.SUCCESS
         build.rank1 = rank1

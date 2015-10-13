@@ -66,7 +66,7 @@
                                     <i class="fa fa-play"></i>
                                     <span class="ml5">{{ build.current_status() }}</span>
                                 </span>
-                            {% elif build.status == 2 %}
+                            {% elif build.status == 2 or build.status == 9 %}
                                 <span class="label label-danger">
                                     <i class="fa fa-thumbs-down"></i>
                                     <span class="ml5">{{ build.current_status() }}</span>
@@ -95,13 +95,16 @@
                                 <i class="fa fa-download"></i>
                             </a>
 
-                            {% if build.status == 3 %}
-
+                            {% if build.status == 3 or build.status == 9%}
                                 <a href="{{ url_for('main.view_log', build_id=build.build_id) }} "
                                    data-toggle="tooltip" data-tooltip="true" title="View build output log"
                                    class="ml10 no-underline">
                                     <i class="fa fa-binoculars"></i>
                                 </a>
+                            {% endif %}
+                            
+
+                            {% if build.status == 3 %}                                
 
                                 {% if build == star_build %}
                                     <a href="#" build-id="{{ build.build_id }}"
