@@ -184,7 +184,7 @@ def build_function(zipfile, images_folder, compare_directory):
         if global_ret != 0:
             return global_ret, -1, -1, -1, gloabl_output    
 
-        psnr, global_ret, compara_output = compara(image, fileRec, i, build_directory, compare_directory)
+        psnr, global_ret, compara_output = compara(image, fileRec, i+1, build_directory, compare_directory)
         gloabl_output += compara_output + '\n\n\n'
         if global_ret != 0:
             return global_ret, -1, -1, -1, gloabl_output    
