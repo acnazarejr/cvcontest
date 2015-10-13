@@ -17,7 +17,13 @@
         <div class="panel-heading">
             <h2 class="panel-title">
                 <i class="fa fa-star"></i>
-                <span class="ml5">Ranking {{ ranking }}</span>
+                {% if ranking==1 %}
+                    <span class="ml5">PSNR Ranking</span>
+                {% elif ranking==2 %}
+                    <span class="ml5">Compression Ranking</span>
+                {% else %}
+                    <span class="ml5">Time Ranking</span>
+                {% endif %}
             </h2>
         </div>
         <div class="panel-body">

@@ -28,28 +28,36 @@
                     </a>
                 </div>
                 <div class="col-md-4 text-center">
-                    <a href="#" class="btn btn-primary btn-lg" role="button">
-                        <i class="fa fa-star fa-3x"></i>
+                    <a href="{{ url_for('auth.edit_info') }}" class="btn btn-primary btn-lg" role="button">
+                        <i class="fa fa-user fa-3x"></i>
                         <br>
-                        Rankings
-                    </a>
+                        Edit account info
+                    </a>                    
                 </div>
             </div>
 
             {# Second line #}
             <div class="row">
                 <div class="col-md-4 text-center">
-                    <a href="{{ url_for('auth.edit_info') }}" class="btn btn-primary btn-lg" role="button">
-                        <i class="fa fa-user fa-3x"></i>
+                    <a href="{{ url_for('main.ranking1') }}" class="btn btn-primary btn-lg" role="button">
+                        <i class="fa fa-star fa-3x"></i>
                         <br>
-                        Edit account info
+                        PSNR Ranking
                     </a>
                 </div>
-                <div class="col-md-4">
-
+                <div class="col-md-4 text-center">
+                    <a href="{{ url_for('main.ranking2') }}" class="btn btn-primary btn-lg" role="button">
+                        <i class="fa fa-star fa-3x"></i>
+                        <br>
+                        CR Ranking
+                    </a>
                 </div>
-                <div class="col-md-4">
-
+                <div class="col-md-4 text-center">
+                    <a href="{{ url_for('main.ranking3') }}" class="btn btn-primary btn-lg" role="button">
+                        <i class="fa fa-star fa-3x"></i>
+                        <br>
+                        Time Ranking
+                    </a>
                 </div>
             </div>
         </div>

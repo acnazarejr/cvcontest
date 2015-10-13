@@ -140,7 +140,7 @@ def build_function(zipfile, images_folder, compare_directory):
     rank_cr = -1
     gloabl_output = ''
     global_ret = -1
-    images = ["lena.png", "lena2.png", "lena3.png"]    
+    images = ["lena.png", "lena2.png", "lena3.png"]  
 
     build_directory, global_ret, before_test_output = before_test(zipfile)
     gloabl_output += before_test_output
@@ -209,8 +209,8 @@ def build_function(zipfile, images_folder, compare_directory):
     print("Average PSNR: %5.3f" % psnr)
 
     rank_psnr = psnr
-    rank_time = totalTime
     rank_cr = CR
+    rank_time = totalTime
 
     # return psnr, time, CR
-    return global_ret, rank_psnr, rank_time, rank_cr, gloabl_output
+    return global_ret, rank_psnr, rank_cr, rank_time, gloabl_output

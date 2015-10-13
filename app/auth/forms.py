@@ -22,7 +22,7 @@ class RegistrationForm(Form):
                                           'Usernames must have only letters, '
                                           'numbers, dots or underscores')])
     complete_name = StringField('Complete Name', validators=[Required(), Length(1, 200)])
-    register = StringField('Registration', validators=[
+    register = StringField('UFMG Registration', validators=[
         Required(), Length(8, 8), Regexp('^[0-9]*$', 0, 'Register must have only numbers')])
     password = PasswordField('Password', validators=[
         Required(), EqualTo('password2', message='Passwords must match.')])
@@ -81,7 +81,7 @@ class ChangeEmailForm(Form):
 
 class EditInfoForm(Form):
     complete_name = StringField('Complete Name', validators=[Required(), Length(1, 200)])
-    register = StringField('Registration', validators=[
+    register = StringField('UFMG Registration', validators=[
         Required(), Length(8, 8), Regexp('^[0-9]*$', 0, 'Register must have only numbers')])
     photo = FileField('Upload photo...', validators=[
         FileAllowed(['jpg', 'jpe', 'jpeg', 'png', 'gif', 'svg', 'bmp'], 'Images only!')
@@ -89,5 +89,6 @@ class EditInfoForm(Form):
     submit = SubmitField('Save Changes')
 
     def validate_register(self, field):
-        if User.query.filter_by(register=field.data).first():
+        user = User.query.filter_by(register=field.data).first()
+        if (user is not None) and (user.email != current_user.email):
             raise ValidationError('Register number already in use.')

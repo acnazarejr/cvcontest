@@ -45,7 +45,7 @@ def create_app(config_name):
     def initialize():
         apsched = Scheduler()
         apsched.start()
-        apsched.add_interval_job(runBuilds, seconds=3)
+        apsched.add_interval_job(runBuilds, seconds=10)
 
     return app
 
