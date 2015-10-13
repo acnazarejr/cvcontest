@@ -64,7 +64,7 @@ def before_test(zipfile):
     before_test_output += '[cvContest] Before Running Tests\n'
     before_test_output += '---------------------------------------------\n\n'
     with open('before_test_output', "w") as outfile:
-        before_test_ret = subprocess.call(script, shell=True, stdout=outfile)
+        before_test_ret = subprocess.call(script, shell=True, stdout=outfile, stderr=outfile)
     with open('before_test_output', "r") as outfile:
         before_test_output += outfile.read()
     os.remove('before_test_output')
@@ -83,7 +83,7 @@ def compacta(image, i, build_directory):
     compacta_output += '---------------------------------------------\n\n'
     with open('compacta_output', "w") as outfile:
         start_time = time.time()
-        compacta_ret = subprocess.call(script, shell=True, stdout=outfile)
+        compacta_ret = subprocess.call(script, shell=True, stdout=outfile, stderr=outfile)
         compacta_time = time.time() - start_time
     with open('compacta_output', "r") as outfile:
         compacta_output += outfile.read()
@@ -102,7 +102,7 @@ def descompacta(image_comp, i, build_directory):
     descompacta_output += '---------------------------------------------\n\n'
     with open('descompacta_output', "w") as outfile:
         start_time = time.time()
-        descompacta_ret = subprocess.call(script, shell=True, stdout=outfile)
+        descompacta_ret = subprocess.call(script, shell=True, stdout=outfile, stderr=outfile)
         descompacta_time = time.time() - start_time
     with open('descompacta_output', "r") as outfile:
         descompacta_output += outfile.read()
@@ -120,7 +120,7 @@ def compara(image, fileRec, i, build_directory, comparaDir):
     compara_output += '[cvContest] Comparacao for image: ' + str(i) + '\n'
     compara_output += '---------------------------------------------\n\n'
     with open('compara_output', "w") as outfile:
-        compara_ret = subprocess.call(script, shell=True, stdout=outfile)
+        compara_ret = subprocess.call(script, shell=True, stdout=outfile, stderr=outfile)
     with open('compara_output', "r") as outfile:
         compara_output += outfile.read()
     os.remove('compara_output')
@@ -145,7 +145,7 @@ def build_function(zipfile, images_folder, compare_directory):
     rank_cr = -1
     gloabl_output = ''
     global_ret = -1
-    images = ["lena.png", "lena2.png", "lena3.png"]  
+    images = ["lena.png", "lena2.png", "lena3.png"]
 
     build_directory, global_ret, before_test_output = before_test(zipfile)
     gloabl_output += before_test_output + '\n\n\n'
