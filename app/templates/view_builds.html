@@ -79,7 +79,7 @@
                             {% endif %}
                         </td>
 
-                        {% if build.status >= 3 %}
+                        {% if build.status == 3 %}
                             <td>{{ "{:.3f}".format(build.rank1) }}</td>
                             <td>{{ "{:.3f}".format(build.rank2) }}</td>
                             <td>{{ "{:.3f}".format(build.rank3) }}</td>
