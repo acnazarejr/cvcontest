@@ -23,7 +23,7 @@ class RegistrationForm(Form):
                                           'numbers, dots or underscores')])
     complete_name = StringField('Complete Name', validators=[Required(), Length(1, 200)])
     register = StringField('UFMG Registration', validators=[
-        Required(), Length(8, 8), Regexp('^[0-9]*$', 0, 'Register must have only numbers')])
+        Required(), Length(10, 10), Regexp('^[0-9]*$', 0, 'Register must have only numbers')])
     password = PasswordField('Password', validators=[
         Required(), EqualTo('password2', message='Passwords must match.')])
     password2 = PasswordField('Confirm password', validators=[Required()])
@@ -82,7 +82,7 @@ class ChangeEmailForm(Form):
 class EditInfoForm(Form):
     complete_name = StringField('Complete Name', validators=[Required(), Length(1, 200)])
     register = StringField('UFMG Registration', validators=[
-        Required(), Length(8, 8), Regexp('^[0-9]*$', 0, 'Register must have only numbers')])
+        Required(), Length(10, 10), Regexp('^[0-9]*$', 0, 'Register must have only numbers')])
     photo = FileField('Upload photo...', validators=[
         FileAllowed(['jpg', 'jpe', 'jpeg', 'png', 'gif', 'svg', 'bmp'], 'Images only!')
     ])
