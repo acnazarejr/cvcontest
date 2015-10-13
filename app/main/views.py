@@ -106,7 +106,7 @@ def ranking1():
     for user in users:
         if user.star_build is not None:
             builds.append(user.star_build)
-    builds = sorted(builds, key=lambda build: build.rank1)
+    builds = sorted(builds, key=lambda build: build.rank1, reverse=True)
     return render_template('ranking.html', builds=builds, ranking=1)
 
 
