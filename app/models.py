@@ -12,6 +12,7 @@ class BuildStatus:
     BUILD = 1
     ERROR = 2
     SUCCESS = 3
+    BAD_PSNR = 7
     ERROR_FILE = 9
 
 

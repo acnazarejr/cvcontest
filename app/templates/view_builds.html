@@ -42,9 +42,8 @@
                     <th data-sortable="true" data-align="center">UTC Time</th>
                     <th>Message</th>
                     <th data-sortable="true" data-align="center">Status</th>
-                    <th data-sortable="true" data-align="center">Rank 1</th>
-                    <th data-sortable="true" data-align="center">Rank 2</th>
-                    <th data-sortable="true" data-align="center">Rank 3</th>
+                    <th data-sortable="true" data-align="center">Compression</th>
+                    <th data-sortable="true" data-align="center">Time</th>
                     <th data-align="center">Actions</th>
                 </tr>
                 </thead>
@@ -80,11 +79,9 @@
                         </td>
 
                         {% if build.status == 3 %}
-                            <td>{{ "{:.3f}".format(build.rank1) }}</td>
                             <td>{{ "{:.3f}".format(build.rank2) }}</td>
                             <td>{{ "{:.3f}".format(build.rank3) }}</td>
                         {% else %}
-                            <td>N/A</td>
                             <td>N/A</td>
                             <td>N/A</td>
                         {% endif %}
@@ -102,9 +99,9 @@
                                     <i class="fa fa-binoculars"></i>
                                 </a>
                             {% endif %}
-                            
 
-                            {% if build.status == 3 %}                                
+
+                            {% if build.status == 3 %}
 
                                 {% if build == star_build %}
                                     <a href="#" build-id="{{ build.build_id }}"

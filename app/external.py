@@ -19,19 +19,19 @@ def run_builds():
     if build is not None:
         uploads_folder = os.path.join(current_app.config['APP_ROOT'], 'static', current_app.config['UPLOAD_FOLDER'])
         images_folder = os.path.join(current_app.config['APP_ROOT'], 'static', current_app.config['IMAGES_FOLDER'])
-        compara_folder = os.path.join(current_app.config['APP_ROOT'], 'static', current_app.config['COMPARA_FOLDER'])
+        comparison_folder = os.path.join(current_app.config['APP_ROOT'], 'static', current_app.config['COMPARISON_FOLDER'])
         build_file_path = uploads_folder + "/" + build.build_hash + ".zip"
         log_file_path = uploads_folder + "/" + build.build_hash + ".txt"
-    
+
         if not os.path.isfile(build_file_path):
             build.status = BuildStatus.ERROR
             db.session.commit()
             return
-    
+
         # William's function
         build.status = BuildStatus.BUILD
         db.session.commit()
-        ret, rank1, rank2, rank3, output = build_function(build_file_path, images_folder, compara_folder)
+        ret, rank1, rank2, rank3, output = build_function(build_file_path, images_folder, comparison_folder)
 
         log_file = open(log_file_path, "w")
         log_file.write(output)
@@ -40,8 +40,13 @@ def run_builds():
         if ret != 0:
             build.status = BuildStatus.ERROR_FILE
             db.session.commit()
-            return        
-    
+            return
+
+        if rank1 < float('Inf'):
+            build.status = BuildStatus.BAD_PSNR
+            db.session.commit()
+            return
+
         build.status = BuildStatus.SUCCESS
         build.rank1 = rank1
         build.rank2 = rank2
@@ -53,7 +58,7 @@ def run_builds():
 def before_test(zipfile):
     build_directory = os.path.splitext(zipfile)[0] + '_build'
     if not os.path.exists(build_directory):
-        os.makedirs(build_directory)     
+        os.makedirs(build_directory)
 
     script = 'unzip -j -o ' + zipfile + ' -d ' + build_directory + ' && ' + \
              'cd ' + build_directory + ' && ' + \
@@ -112,34 +117,34 @@ def descompacta(image_comp, i, build_directory):
 
 
 def compara(image, fileRec, i, build_directory, comparaDir):
-    script = 'cd ' + comparaDir + ' && ' + \
-             './compara ' + image + ' ' + fileRec + '; '
-    
-    compara_ret = -1
+    #script = 'cd ' + comparaDir + ' && ' + \
+    #         './compara ' + image + ' ' + fileRec + '; '
+
+    compara_ret = 0
     compara_output = '----------------------------------------------\n'
     compara_output += '[cvContest] Comparacao for image: ' + str(i) + '\n'
     compara_output += '---------------------------------------------\n\n'
-    with open('compara_output', "w") as outfile:
-        compara_ret = subprocess.call(script, shell=True, stdout=outfile, stderr=outfile)
-    with open('compara_output', "r") as outfile:
-        compara_output += outfile.read()
-    os.remove('compara_output')
+    #with open('compara_output', "w") as outfile:
+    #    compara_ret = subprocess.call(script, shell=True, stdout=outfile, stderr=outfile)
+    #with open('compara_output', "r") as outfile:
+    #    compara_output += outfile.read()
+    #os.remove('compara_output')
 
-    psnr = -1
-    if os.path.exists(comparaDir + '/' + 'psnr.txt'):
-        f = open(comparaDir + '/psnr.txt', 'r')
-        value = f.readline()
-        psnr = float(value)
-        f.close()
-        os.remove(comparaDir + '/' + 'psnr.txt')        
-    else:
-        compara_ret = -1
+    psnr = float("inf")
+    #if os.path.exists(comparaDir + '/' + 'psnr.txt'):
+    #    f = open(comparaDir + '/psnr.txt', 'r')
+    #    value = f.readline()
+    #    psnr = float(value)
+    #    f.close()
+    #    os.remove(comparaDir + '/' + 'psnr.txt')
+    #else:
+    #    compara_ret = -1
 
     return psnr, compara_ret, compara_output
 
 
 def build_function(zipfile, images_folder, compare_directory):
-    
+
     rank_psnr = -1
     rank_time = -1
     rank_cr = -1
@@ -187,12 +192,12 @@ def build_function(zipfile, images_folder, compare_directory):
         gloabl_output += descompacta_output + '\n\n\n'
         totalTime += descompacta_time
         if global_ret != 0:
-            return global_ret, -1, -1, -1, gloabl_output    
+            return global_ret, -1, -1, -1, gloabl_output
 
         psnr, global_ret, compara_output = compara(image, fileRec, i+1, build_directory, compare_directory)
         gloabl_output += compara_output + '\n\n\n'
         if global_ret != 0:
-            return global_ret, -1, -1, -1, gloabl_output    
+            return global_ret, -1, -1, -1, gloabl_output
 
         print("CR: %5.3f" % (float(totalsize) / float(imsize)))
         print("PSNR: %5.3f" % (psnr))
@@ -203,7 +208,7 @@ def build_function(zipfile, images_folder, compare_directory):
             os.remove(fileComp)
 
         if os.path.exists(fileRec):
-            os.remove(fileRec)        
+            os.remove(fileRec)
 
     CR = float(totalInSize) / float(totalCompressSize)
     psnr = float(totalPSNR) / float(len(images))

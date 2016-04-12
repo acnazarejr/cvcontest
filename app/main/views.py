@@ -98,16 +98,17 @@ def view_log(build_id):
         return redirect(url_for('main.index'))
 
 
-@main.route('/ranking1')
-@login_required
-def ranking1():
-    users = User.query.all()
-    builds = []
-    for user in users:
-        if user.star_build is not None:
-            builds.append(user.star_build)
-    builds = sorted(builds, key=lambda build: build.rank1, reverse=True)
-    return render_template('ranking.html', builds=builds, ranking=1)
+# @main.route('/ranking1')
+# @login_required
+# def ranking1():
+#     users = User.query.all()
+#     builds = []
+#     for user in users:
+#         if user.star_build is not None:
+#             builds.append(user.star_build)
+#     builds = sorted(builds, key=lambda build: build.rank1, reverse=True)
+#     print users
+#     return render_template('ranking.html', builds=builds, ranking=1)
 
 
 @main.route('/ranking2')

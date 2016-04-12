@@ -71,6 +71,7 @@ photos/
 uploads/
 images/
 comparacao/
+upload/
 variables*.*
 
 # Vagrant
